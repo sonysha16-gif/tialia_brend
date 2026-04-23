@@ -145,27 +145,27 @@ const ProductModal = ({ product, isOpen, onClose, onAddToCart }) => {
       {isOpen && (
         <>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} className="fixed inset-0 bg-black/80 backdrop-blur-md z-[120]" />
-          <motion.div initial={{ opacity: 0, scale: 0.95, y: 0 }} animate={{ opacity: 1, scale: 1, y: -50 }} exit={{ opacity: 0, scale: 0.95, y: 0 }} className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92vw] max-w-4xl h-fit max-h-[85vh] bg-white z-[130] rounded-[2rem] shadow-2xl overflow-hidden flex flex-col md:flex-row shadow-black/40">
-            <button onClick={onClose} className="absolute top-6 right-6 p-2 bg-brand-cream/50 hover:bg-brand-lime rounded-full z-20 transition-colors"><X className="w-5 h-5" /></button>
-            <div className="w-full md:w-1/2 h-56 md:h-auto overflow-hidden">
+          <motion.div initial={{ opacity: 0, scale: 0.95, y: 0 }} animate={{ opacity: 1, scale: 1, y: -50 }} exit={{ opacity: 0, scale: 0.95, y: 0 }} className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92vw] max-w-4xl h-fit max-h-[90vh] bg-white z-[130] rounded-[2rem] shadow-2xl overflow-y-auto md:overflow-hidden flex flex-col md:flex-row shadow-black/40">
+            <button onClick={onClose} className="absolute top-4 right-4 p-2 bg-brand-cream/80 hover:bg-brand-lime rounded-full z-20 transition-colors shadow-sm"><X className="w-4 h-4" /></button>
+            <div className="w-full md:w-1/2 h-44 md:h-auto overflow-hidden shrink-0">
                <img src={product.image} alt={product.name} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
             </div>
-            <div className="flex-1 p-8 md:p-12 overflow-y-auto">
-              <span className="text-brand-lime font-bold uppercase tracking-widest text-[10px] mb-4 block">Натуральный состав</span>
-              <h2 className="font-display text-4xl font-medium mb-6 leading-tight">{product.name}</h2>
-              <div className="space-y-6 mb-10">
+            <div className="flex-1 p-6 md:p-12">
+              <span className="text-brand-lime font-bold uppercase tracking-widest text-[9px] mb-2 md:mb-4 block">Натуральный состав</span>
+              <h2 className="font-display text-2xl md:text-4xl font-medium mb-4 md:mb-6 leading-tight">{product.name}</h2>
+              <div className="space-y-4 md:space-y-6 mb-8 md:mb-10">
                 <div>
-                  <h4 className="font-bold text-[10px] uppercase tracking-widest mb-2 text-slate-400">Описание</h4>
-                  <p className="text-slate-600 leading-relaxed text-sm italic">{product.desc}</p>
+                  <h4 className="font-bold text-[9px] uppercase tracking-widest mb-1 md:mb-2 text-slate-400">Описание</h4>
+                  <p className="text-slate-600 leading-relaxed text-xs md:text-sm italic">{product.desc}</p>
                 </div>
                 <div>
-                  <h4 className="font-bold text-[10px] uppercase tracking-widest mb-2 text-slate-400">Состав</h4>
-                  <p className="text-xs font-medium text-slate-500 leading-relaxed bg-brand-cream p-4 rounded-xl border border-black/5">{product.ingredients}</p>
+                  <h4 className="font-bold text-[9px] uppercase tracking-widest mb-1 md:mb-2 text-slate-400">Состав</h4>
+                  <p className="text-[10px] md:text-xs font-medium text-slate-500 leading-relaxed bg-brand-cream p-3 md:p-4 rounded-xl border border-black/5">{product.ingredients}</p>
                 </div>
               </div>
-              <div className="pt-6 border-t flex flex-col sm:flex-row justify-between items-center gap-4">
-                <span className="font-display text-2xl font-bold">{product.price} ₽</span>
-                <button onClick={() => { onAddToCart(product); onClose(); }} className="w-full sm:w-auto px-10 py-4 bg-brand-dark text-white rounded-full font-bold text-sm hover:bg-brand-lime hover:text-brand-dark transition-all duration-300 flex items-center justify-center gap-3">
+              <div className="pt-4 md:pt-6 border-t flex flex-col sm:flex-row justify-between items-center gap-4">
+                <span className="font-display text-xl md:text-2xl font-bold">{product.price} ₽</span>
+                <button onClick={() => { onAddToCart(product); onClose(); }} className="w-full sm:w-auto px-10 py-3 md:py-4 bg-brand-dark text-white rounded-full font-bold text-xs md:text-sm hover:bg-brand-lime hover:text-brand-dark transition-all duration-300 flex items-center justify-center gap-3">
                   <ShoppingBag className="w-4 h-4" /> В корзину
                 </button>
               </div>
@@ -280,9 +280,9 @@ const Hero = () => {
   return (
     <section className="relative min-h-[90vh] md:h-screen w-full flex items-center justify-center overflow-hidden bg-brand-dark">
       <img src="https://i.yapx.ru/ddJUS.png" alt="Natural beauty" className="absolute inset-0 w-full h-full object-cover" referrerPolicy="no-referrer" />
-      <div className="absolute inset-0 bg-black/20"></div>
+      <div className="absolute inset-0 bg-black/25"></div>
 
-      <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }} className="relative z-10 w-fit max-w-sm border border-white/20 rounded-[3rem] p-8 md:p-10 overflow-hidden shadow-2xl bg-black/25 backdrop-blur-md mx-6">
+      <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }} className="relative z-10 w-fit max-w-[85vw] md:max-w-sm border border-white/20 rounded-[2rem] md:rounded-[3rem] p-6 sm:p-10 overflow-hidden shadow-2xl bg-black/50 backdrop-blur-xl mx-6">
         <div className="relative z-10 text-center flex flex-col items-center">
           <h2 className="font-display text-3xl md:text-4xl text-white font-medium italic mb-6 leading-tight tracking-tight drop-shadow-lg">Красота, рожденная <br /> в самом <span className="text-brand-yellow font-bold">сердце природы</span></h2>
           <p className="max-w-xs text-white/95 text-xs md:text-sm font-medium mb-8 italic leading-relaxed drop-shadow-md">"Настоящая гармония — это когда ваша кожа дышит вместе с миром, обретая покой в каждом мгновении."</p>
@@ -355,7 +355,7 @@ const Catalog = ({ onAddToCart, onViewProduct }) => {
                 </button>
               </div>
             </div>
-            <h3 className="font-display text-xl font-bold italic tracking-tight mb-2 uppercase">{p.name}</h3>
+            <h3 className="font-display text-xl md:text-xl font-bold italic tracking-tight mb-2 uppercase">{p.name}</h3>
             <div className="text-xs font-black text-brand-lime">{p.price} ₽</div>
           </motion.div>
         ))}
