@@ -247,7 +247,7 @@ const Header = ({ cartCount, onCartOpen, onMobileMenuOpen }) => {
 
   return (
     <>
-      <div className={`fixed top-0 left-0 right-0 h-40 z-[90] transition-opacity duration-500 pointer-events-none bg-gradient-to-b from-black/60 via-black/30 to-transparent ${scrolled ? 'opacity-0' : 'opacity-100'}`}></div>
+      <div className={`fixed top-0 left-0 right-0 h-40 z-[90] transition-opacity duration-500 pointer-events-none bg-gradient-to-b from-black/70 via-black/40 to-transparent ${scrolled ? 'opacity-0' : 'opacity-100'}`}></div>
       <header className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${scrolled ? 'bg-white/95 backdrop-blur-xl py-4 border-b border-black/5 shadow-sm' : 'py-8'}`}>
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
           <div className="flex items-center gap-4">
@@ -280,9 +280,9 @@ const Hero = () => {
   return (
     <section className="relative min-h-[90vh] md:h-screen w-full flex items-center justify-center overflow-hidden bg-brand-dark">
       <img src="https://i.yapx.ru/ddJUS.png" alt="Natural beauty" className="absolute inset-0 w-full h-full object-cover" referrerPolicy="no-referrer" />
-      <div className="absolute inset-0 bg-black/30"></div>
+      <div className="absolute inset-0 bg-black/20"></div>
 
-      <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }} className="relative z-10 w-fit max-w-sm border border-white/30 rounded-[3rem] p-8 md:p-10 overflow-hidden shadow-2xl backdrop-blur-lg bg-black/20 mx-6">
+      <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }} className="relative z-10 w-fit max-w-sm border border-white/20 rounded-[3rem] p-8 md:p-10 overflow-hidden shadow-2xl bg-black/25 backdrop-blur-md mx-6">
         <div className="relative z-10 text-center flex flex-col items-center">
           <h2 className="font-display text-3xl md:text-4xl text-white font-medium italic mb-6 leading-tight tracking-tight drop-shadow-lg">Красота, рожденная <br /> в самом <span className="text-brand-yellow font-bold">сердце природы</span></h2>
           <p className="max-w-xs text-white/95 text-xs md:text-sm font-medium mb-8 italic leading-relaxed drop-shadow-md">"Настоящая гармония — это когда ваша кожа дышит вместе с миром, обретая покой в каждом мгновении."</p>
@@ -333,22 +333,26 @@ const Catalog = ({ onAddToCart, onViewProduct }) => {
             whileInView={{ opacity: 1, y: 0 }} 
             viewport={{ once: true }} 
             transition={{ delay: i * 0.05 }} 
-            className="group flex flex-col items-center text-center"
-            onClick={() => {
-              if (window.innerWidth < 1024) onViewProduct(p);
-            }}
+            className="group flex flex-col items-center text-center cursor-pointer"
+            onClick={() => onViewProduct(p)}
           >
             <div className="relative w-full aspect-[4/5] rounded-[3.5rem] overflow-hidden bg-white shadow-xl shadow-black/5 border border-black/5 mb-8">
               <img src={p.image} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 grayscale-[0.1] group-hover:grayscale-0" referrerPolicy="no-referrer" />
-              <div className="absolute inset-0 bg-brand-dark/30 opacity-0 group-hover:opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center p-6 gap-4">
-                 <button onClick={(e) => { e.stopPropagation(); onViewProduct(p); }} className="w-full py-4 bg-white text-brand-dark rounded-full font-bold text-[10px] uppercase tracking-widest hover:bg-brand-lime transition-all hidden lg:flex items-center justify-center gap-2 shadow-xl"><Eye className="w-4 h-4" />Подробнее</button>
-                 <button onClick={(e) => { e.stopPropagation(); onAddToCart(p); }} className="w-full py-4 bg-brand-dark text-white rounded-full font-bold text-[10px] uppercase tracking-widest hover:bg-brand-yellow hover:text-brand-dark transition-all flex items-center justify-center gap-2 shadow-xl md:shadow-none lg:shadow-xl"><ShoppingBag className="w-4 h-4" />В корзину</button>
+              
+              {/* Desktop Hover Overlay */}
+              <div className="hidden lg:flex absolute inset-0 bg-brand-dark/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex-col items-center justify-center p-6 gap-4">
+                 <button onClick={(e) => { e.stopPropagation(); onViewProduct(p); }} className="w-full py-4 bg-white text-brand-dark rounded-full font-bold text-[10px] uppercase tracking-widest hover:bg-brand-lime transition-all flex items-center justify-center gap-2 shadow-xl"><Eye className="w-4 h-4" />Подробнее</button>
+                 <button onClick={(e) => { e.stopPropagation(); onAddToCart(p); }} className="w-full py-4 bg-brand-dark text-white rounded-full font-bold text-[10px] uppercase tracking-widest hover:bg-brand-yellow hover:text-brand-dark transition-all flex items-center justify-center gap-2 shadow-xl"><ShoppingBag className="w-4 h-4" />В корзину</button>
               </div>
-              {/* Mobile quick action indicator */}
-              <div className="absolute bottom-6 right-6 lg:hidden">
-                <div className="w-12 h-12 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center shadow-lg border border-white/50">
+
+              {/* Mobile Interaction Indicator */}
+              <div className="absolute bottom-6 right-6 lg:hidden z-20">
+                <button 
+                  onClick={(e) => { e.stopPropagation(); onAddToCart(p); }}
+                  className="w-12 h-12 bg-brand-lime rounded-full flex items-center justify-center shadow-lg active:scale-95 transition-transform"
+                >
                   <Plus className="w-6 h-6 text-brand-dark" />
-                </div>
+                </button>
               </div>
             </div>
             <h3 className="font-display text-xl font-bold italic tracking-tight mb-2 uppercase">{p.name}</h3>
