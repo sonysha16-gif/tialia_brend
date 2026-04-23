@@ -145,7 +145,7 @@ const ProductModal = ({ product, isOpen, onClose, onAddToCart }) => {
       {isOpen && (
         <>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} className="fixed inset-0 bg-black/80 backdrop-blur-md z-[120]" />
-          <motion.div initial={{ opacity: 0, scale: 0.95, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 20 }} className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-full max-w-4xl h-fit max-h-[85vh] bg-white z-[130] rounded-[2rem] shadow-2xl overflow-hidden flex flex-col md:flex-row">
+          <motion.div initial={{ opacity: 0, scale: 0.95, y: 0 }} animate={{ opacity: 1, scale: 1, y: -50 }} exit={{ opacity: 0, scale: 0.95, y: 0 }} className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92vw] max-w-4xl h-fit max-h-[85vh] bg-white z-[130] rounded-[2rem] shadow-2xl overflow-hidden flex flex-col md:flex-row shadow-black/40">
             <button onClick={onClose} className="absolute top-6 right-6 p-2 bg-brand-cream/50 hover:bg-brand-lime rounded-full z-20 transition-colors"><X className="w-5 h-5" /></button>
             <div className="w-full md:w-1/2 h-56 md:h-auto overflow-hidden">
                <img src={product.image} alt={product.name} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
@@ -321,15 +321,34 @@ const AboutSection = () => {
 const Catalog = ({ onAddToCart, onViewProduct }) => {
   return (
     <section id="catalog" className="py-24 bg-brand-cream/20">
-      <div className="max-w-7xl mx-auto px-6 text-center mb-16"><span className="text-brand-dark/20 font-bold uppercase tracking-[0.5em] text-[10px] mb-4 block italic">The Flora Collection</span><h2 className="font-display text-6xl md:text-8xl font-medium uppercase tracking-tighter leading-none mb-4 italic">Коллекция <span className="text-brand-lime not-italic font-bold">ухода</span></h2></div>
+      <div className="max-w-7xl mx-auto px-6 text-center mb-16">
+        <span className="text-brand-dark/20 font-bold uppercase tracking-[0.5em] text-[10px] mb-4 block italic leading-relaxed">The Flora Collection</span>
+        <h2 className="font-display text-4xl sm:text-5xl md:text-8xl font-medium uppercase tracking-tighter leading-[0.9] mb-4 italic">Коллекция <br className="sm:hidden" /> <span className="text-brand-lime not-italic font-bold">ухода</span></h2>
+      </div>
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-20">
         {PRODUCTS.map((p, i) => (
-          <motion.div key={p.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }} className="group flex flex-col items-center text-center">
+          <motion.div 
+            key={p.id} 
+            initial={{ opacity: 0, y: 20 }} 
+            whileInView={{ opacity: 1, y: 0 }} 
+            viewport={{ once: true }} 
+            transition={{ delay: i * 0.05 }} 
+            className="group flex flex-col items-center text-center"
+            onClick={() => {
+              if (window.innerWidth < 1024) onViewProduct(p);
+            }}
+          >
             <div className="relative w-full aspect-[4/5] rounded-[3.5rem] overflow-hidden bg-white shadow-xl shadow-black/5 border border-black/5 mb-8">
               <img src={p.image} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 grayscale-[0.1] group-hover:grayscale-0" referrerPolicy="no-referrer" />
-              <div className="absolute inset-0 bg-brand-dark/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center p-6 gap-4">
-                 <button onClick={() => onViewProduct(p)} className="w-full py-4 bg-white text-brand-dark rounded-full font-bold text-[10px] uppercase tracking-widest hover:bg-brand-lime transition-all flex items-center justify-center gap-2 shadow-xl"><Eye className="w-4 h-4" />Подробнее</button>
-                 <button onClick={() => onAddToCart(p)} className="w-full py-4 bg-brand-dark text-white rounded-full font-bold text-[10px] uppercase tracking-widest hover:bg-brand-yellow hover:text-brand-dark transition-all flex items-center justify-center gap-2 shadow-xl"><ShoppingBag className="w-4 h-4" />В корзину</button>
+              <div className="absolute inset-0 bg-brand-dark/30 opacity-0 group-hover:opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center p-6 gap-4">
+                 <button onClick={(e) => { e.stopPropagation(); onViewProduct(p); }} className="w-full py-4 bg-white text-brand-dark rounded-full font-bold text-[10px] uppercase tracking-widest hover:bg-brand-lime transition-all hidden lg:flex items-center justify-center gap-2 shadow-xl"><Eye className="w-4 h-4" />Подробнее</button>
+                 <button onClick={(e) => { e.stopPropagation(); onAddToCart(p); }} className="w-full py-4 bg-brand-dark text-white rounded-full font-bold text-[10px] uppercase tracking-widest hover:bg-brand-yellow hover:text-brand-dark transition-all flex items-center justify-center gap-2 shadow-xl md:shadow-none lg:shadow-xl"><ShoppingBag className="w-4 h-4" />В корзину</button>
+              </div>
+              {/* Mobile quick action indicator */}
+              <div className="absolute bottom-6 right-6 lg:hidden">
+                <div className="w-12 h-12 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center shadow-lg border border-white/50">
+                  <Plus className="w-6 h-6 text-brand-dark" />
+                </div>
               </div>
             </div>
             <h3 className="font-display text-xl font-bold italic tracking-tight mb-2 uppercase">{p.name}</h3>
