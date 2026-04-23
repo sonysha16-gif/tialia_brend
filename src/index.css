@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Tenor+Sans&display=swap');
+@import "tailwindcss";
+
+.outline-text {
+  @apply text-transparent;
+  -webkit-text-stroke: 1px var(--color-brand-lime);
+}
+
+.faq-accordion-item {
+  @apply border-b border-brand-dark/10 py-6 overflow-hidden;
+}
+
+.faq-trigger {
+  @apply flex justify-between items-center w-full text-left font-display font-medium text-lg;
+}
+
+.faq-content {
+  @apply text-slate-500 mt-4 leading-relaxed;
+}
+
+@theme {
+  --font-sans: "Tenor Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bodoni Moda", serif;
+  
+  --color-brand-lime: #ccff00;
+  --color-brand-yellow: #fff700;
+  --color-brand-dark: #121212;
+  --color-brand-cream: #faf9f6;
+  --color-brand-sage: #2d362e;
+}
+
+@layer base {
+  body {
+    @apply bg-brand-cream text-brand-dark font-sans antialiased;
+  }
+}
+
+.text-reveal {
+  @apply overflow-hidden;
+}
+
+.text-reveal span {
+  @apply inline-block;
+}
